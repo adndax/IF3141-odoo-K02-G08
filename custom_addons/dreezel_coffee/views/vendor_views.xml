@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_vendor_tree" model="ir.ui.view">
+        <field name="name">dreezel.vendor.tree</field>
+        <field name="model">dreezel.vendor</field>
+        <field name="arch" type="xml">
+            <tree string="Daftar Vendor">
+                <field name="name" string="Nama Vendor"/>
+                <field name="contact" string="Kontak"/>
+                <field name="address" string="Alamat"/>
+                <field name="is_active" string="Aktif"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_vendor_form" model="ir.ui.view">
+        <field name="name">dreezel.vendor.form</field>
+        <field name="model">dreezel.vendor</field>
+        <field name="arch" type="xml">
+            <form string="Vendor">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" string="Nama Vendor"/>
+                        <h1><field name="name" placeholder="Nama Vendor"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name" string="Nama Vendor"/>
+                            <field name="contact" string="Kontak"/>
+                        </group>
+                        <group>
+                            <field name="address" string="Alamat"/>
+                            <field name="is_active" string="Aktif"/>
+                        </group>
+                    </group>
+                    <separator string="Bahan Baku yang Disuplai"/>
+                    <field name="ingredient_ids" readonly="1">
+                        <tree>
+                            <field name="name" string="Nama Bahan"/>
+                            <field name="unit" string="Satuan"/>
+                            <field name="stock" string="Stok"/>
+                        </tree>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_vendor" model="ir.actions.act_window">
+        <field name="name">Daftar Vendor</field>
+        <field name="res_model">dreezel.vendor</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- ===================== CATEGORIES ===================== -->
+        <record id="cat_coffee" model="dreezel.category">
+            <field name="name">Coffee</field>
+        </record>
+        <record id="cat_tea" model="dreezel.category">
+            <field name="name">Tea</field>
+        </record>
+        <record id="cat_dessert" model="dreezel.category">
+            <field name="name">Dessert</field>
+        </record>
+        <record id="cat_food" model="dreezel.category">
+            <field name="name">Food</field>
+        </record>
+
+        <!-- ===================== VENDORS ===================== -->
+        <record id="vendor_prima" model="dreezel.vendor">
+            <field name="name">Prima Supplier</field>
+            <field name="contact">081234567890</field>
+            <field name="address">Jl. Raya No. 1, Bandung</field>
+            <field name="is_active" eval="True"/>
+        </record>
+        <record id="vendor_segar" model="dreezel.vendor">
+            <field name="name">Segar Jaya</field>
+            <field name="contact">089876543210</field>
+            <field name="address">Jl. Pasar Baru No. 5, Bandung</field>
+            <field name="is_active" eval="True"/>
+        </record>
+
+        <!-- ===================== INGREDIENTS ===================== -->
+        <record id="ing_espresso" model="dreezel.ingredient">
+            <field name="name">Espresso Shot</field>
+            <field name="code">ING-001</field>
+            <field name="unit">shot</field>
+            <field name="stock" eval="100.0"/>
+            <field name="min_stock" eval="10.0"/>
+            <field name="price_per_unit" eval="2000.0"/>
+            <field name="vendor_id" ref="vendor_prima"/>
+        </record>
+        <record id="ing_milk" model="dreezel.ingredient">
+            <field name="name">Fresh Milk</field>
+            <field name="code">ING-002</field>
+            <field name="unit">ml</field>
+            <field name="stock" eval="5000.0"/>
+            <field name="min_stock" eval="500.0"/>
+            <field name="price_per_unit" eval="15.0"/>
+            <field name="vendor_id" ref="vendor_segar"/>
+        </record>
+        <record id="ing_sugar" model="dreezel.ingredient">
+            <field name="name">Sugar Syrup</field>
+            <field name="code">ING-003</field>
+            <field name="unit">ml</field>
+            <field name="stock" eval="2000.0"/>
+            <field name="min_stock" eval="200.0"/>
+            <field name="price_per_unit" eval="5.0"/>
+            <field name="vendor_id" ref="vendor_prima"/>
+        </record>
+        <record id="ing_tea_bag" model="dreezel.ingredient">
+            <field name="name">Tea Bag</field>
+            <field name="code">ING-004</field>
+            <field name="unit">sachet</field>
+            <field name="stock" eval="200.0"/>
+            <field name="min_stock" eval="20.0"/>
+            <field name="price_per_unit" eval="1500.0"/>
+            <field name="vendor_id" ref="vendor_segar"/>
+        </record>
+        <record id="ing_choco_powder" model="dreezel.ingredient">
+            <field name="name">Chocolate Powder</field>
+            <field name="code">ING-005</field>
+            <field name="unit">gram</field>
+            <field name="stock" eval="3000.0"/>
+            <field name="min_stock" eval="300.0"/>
+            <field name="price_per_unit" eval="50.0"/>
+            <field name="vendor_id" ref="vendor_prima"/>
+        </record>
+        <record id="ing_ice" model="dreezel.ingredient">
+            <field name="name">Ice Cubes</field>
+            <field name="code">ING-006</field>
+            <field name="unit">gram</field>
+            <field name="stock" eval="10000.0"/>
+            <field name="min_stock" eval="1000.0"/>
+            <field name="price_per_unit" eval="1.0"/>
+            <field name="vendor_id" ref="vendor_segar"/>
+        </record>
+        <record id="ing_matcha" model="dreezel.ingredient">
+            <field name="name">Matcha Powder</field>
+            <field name="code">ING-007</field>
+            <field name="unit">gram</field>
+            <field name="stock" eval="1000.0"/>
+            <field name="min_stock" eval="100.0"/>
+            <field name="price_per_unit" eval="80.0"/>
+            <field name="vendor_id" ref="vendor_prima"/>
+        </record>
+
+        <!-- ===================== PRODUCTS ===================== -->
+        <record id="prod_americano" model="dreezel.product">
+            <field name="name">Americano</field>
+            <field name="code">DRZ-001</field>
+            <field name="category_id" ref="cat_coffee"/>
+            <field name="price" eval="25000.0"/>
+            <field name="description">Classic black coffee with water</field>
+            <field name="is_available" eval="True"/>
+        </record>
+        <record id="prod_latte" model="dreezel.product">
+            <field name="name">Cafe Latte</field>
+            <field name="code">DRZ-002</field>
+            <field name="category_id" ref="cat_coffee"/>
+            <field name="price" eval="32000.0"/>
+            <field name="description">Espresso with steamed milk</field>
+            <field name="is_available" eval="True"/>
+        </record>
+        <record id="prod_mocha" model="dreezel.product">
+            <field name="name">Mocha</field>
+            <field name="code">DRZ-003</field>
+            <field name="category_id" ref="cat_coffee"/>
+            <field name="price" eval="35000.0"/>
+            <field name="description">Espresso with chocolate and milk</field>
+            <field name="is_available" eval="True"/>
+        </record>
+        <record id="prod_matcha_latte" model="dreezel.product">
+            <field name="name">Matcha Latte</field>
+            <field name="code">DRZ-004</field>
+            <field name="category_id" ref="cat_tea"/>
+            <field name="price" eval="30000.0"/>
+            <field name="description">Matcha green tea with milk</field>
+            <field name="is_available" eval="True"/>
+        </record>
+        <record id="prod_ice_choco" model="dreezel.product">
+            <field name="name">Ice Chocolate</field>
+            <field name="code">DRZ-005</field>
+            <field name="category_id" ref="cat_dessert"/>
+            <field name="price" eval="28000.0"/>
+            <field name="description">Cold chocolate drink</field>
+            <field name="is_available" eval="True"/>
+        </record>
+        <record id="prod_cappuccino" model="dreezel.product">
+            <field name="name">Cappuccino</field>
+            <field name="code">DRZ-006</field>
+            <field name="category_id" ref="cat_coffee"/>
+            <field name="price" eval="30000.0"/>
+            <field name="description">Espresso with foamed milk</field>
+            <field name="is_available" eval="True"/>
+        </record>
+
+        <!-- ===================== RECIPES ===================== -->
+        <record id="recipe_americano_1" model="dreezel.product.ingredient">
+            <field name="product_id" ref="prod_americano"/>
+            <field name="ingredient_id" ref="ing_espresso"/>
+            <field name="quantity" eval="2.0"/>
+        </record>
+        <record id="recipe_latte_1" model="dreezel.product.ingredient">
+            <field name="product_id" ref="prod_latte"/>
+            <field name="ingredient_id" ref="ing_espresso"/>
+            <field name="quantity" eval="2.0"/>
+        </record>
+        <record id="recipe_latte_2" model="dreezel.product.ingredient">
+            <field name="product_id" ref="prod_latte"/>
+            <field name="ingredient_id" ref="ing_milk"/>
+            <field name="quantity" eval="150.0"/>
+        </record>
+        <record id="recipe_mocha_1" model="dreezel.product.ingredient">
+            <field name="product_id" ref="prod_mocha"/>
+            <field name="ingredient_id" ref="ing_espresso"/>
+            <field name="quantity" eval="2.0"/>
+        </record>
+        <record id="recipe_mocha_2" model="dreezel.product.ingredient">
+            <field name="product_id" ref="prod_mocha"/>
+            <field name="ingredient_id" ref="ing_milk"/>
+            <field name="quantity" eval="100.0"/>
+        </record>
+        <record id="recipe_mocha_3" model="dreezel.product.ingredient">
+            <field name="product_id" ref="prod_mocha"/>
+            <field name="ingredient_id" ref="ing_choco_powder"/>
+            <field name="quantity" eval="20.0"/>
+        </record>
+        <record id="recipe_matcha_1" model="dreezel.product.ingredient">
+            <field name="product_id" ref="prod_matcha_latte"/>
+            <field name="ingredient_id" ref="ing_matcha"/>
+            <field name="quantity" eval="15.0"/>
+        </record>
+        <record id="recipe_matcha_2" model="dreezel.product.ingredient">
+            <field name="product_id" ref="prod_matcha_latte"/>
+            <field name="ingredient_id" ref="ing_milk"/>
+            <field name="quantity" eval="150.0"/>
+        </record>
+        <record id="recipe_ice_choco_1" model="dreezel.product.ingredient">
+            <field name="product_id" ref="prod_ice_choco"/>
+            <field name="ingredient_id" ref="ing_milk"/>
+            <field name="quantity" eval="200.0"/>
+        </record>
+        <record id="recipe_ice_choco_2" model="dreezel.product.ingredient">
+            <field name="product_id" ref="prod_ice_choco"/>
+            <field name="ingredient_id" ref="ing_choco_powder"/>
+            <field name="quantity" eval="25.0"/>
+        </record>
+        <record id="recipe_ice_choco_3" model="dreezel.product.ingredient">
+            <field name="product_id" ref="prod_ice_choco"/>
+            <field name="ingredient_id" ref="ing_ice"/>
+            <field name="quantity" eval="150.0"/>
+        </record>
+        <record id="recipe_cappuccino_1" model="dreezel.product.ingredient">
+            <field name="product_id" ref="prod_cappuccino"/>
+            <field name="ingredient_id" ref="ing_espresso"/>
+            <field name="quantity" eval="2.0"/>
+        </record>
+        <record id="recipe_cappuccino_2" model="dreezel.product.ingredient">
+            <field name="product_id" ref="prod_cappuccino"/>
+            <field name="ingredient_id" ref="ing_milk"/>
+            <field name="quantity" eval="100.0"/>
+        </record>
+
+        <!-- ===================== DISCOUNTS ===================== -->
+        <record id="disc_happy_hour" model="dreezel.discount">
+            <field name="code">HAPPYHOUR</field>
+            <field name="discount_type">percentage</field>
+            <field name="value" eval="15.0"/>
+            <field name="date_start" eval="'2026-01-01'"/>
+            <field name="date_end" eval="'2026-12-31'"/>
+            <field name="is_active" eval="True"/>
+        </record>
+        <record id="disc_new_member" model="dreezel.discount">
+            <field name="code">NEWMEMBER</field>
+            <field name="discount_type">fixed</field>
+            <field name="value" eval="5000.0"/>
+            <field name="date_start" eval="'2026-01-01'"/>
+            <field name="date_end" eval="'2026-12-31'"/>
+            <field name="is_active" eval="True"/>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_purchase_order_tree" model="ir.ui.view">
+        <field name="name">dreezel.purchase.order.tree</field>
+        <field name="model">dreezel.purchase.order</field>
+        <field name="arch" type="xml">
+            <tree string="Pengadaan Bahan Baku"
+                 
+                  decoration-success="state == 'received'"
+                  decoration-warning="state == 'ordered'"
+                  decoration-muted="state == 'cancelled'">
+                <field name="name" string="No. Pesanan"/>
+                <field name="vendor_id" string="Vendor"/>
+                <field name="date" string="Tanggal"/>
+                <field name="total_price" string="Total"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'received'"
+                       decoration-warning="state == 'ordered'"
+                       decoration-info="state == 'draft'"
+                       decoration-danger="state == 'cancelled'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_purchase_order_form" model="ir.ui.view">
+        <field name="name">dreezel.purchase.order.form</field>
+        <field name="model">dreezel.purchase.order</field>
+        <field name="arch" type="xml">
+            <form string="Pengadaan Bahan Baku">
+                <header>
+                    <!-- Kirim Pesanan: draft → ordered -->
+                    <button name="action_order"
+                            string="Kirim Pesanan"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state != 'draft'"/>
+                    <!-- Konfirmasi Penerimaan: ordered → received -->
+                    <button name="action_receive"
+                            string="Konfirmasi Penerimaan"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state != 'ordered'"/>
+                    <!-- Batalkan: bisa diklik saat draft atau ordered (tanpa required blocking) -->
+                    <button name="action_cancel"
+                            string="Batalkan"
+                            type="object"
+                            invisible="state in ['received', 'cancelled']"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,ordered,received"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" string="Pengadaan"/>
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Info Pesanan">
+                            <!--
+                                vendor_id required di model, tapi tidak pakai required="1" di view
+                                agar tombol Batalkan tidak diblokir frontend.
+                                Validasi dilakukan di Python action_order.
+                            -->
+                            <field name="vendor_id" readonly="state != 'draft'"/>
+                            <field name="date" readonly="state != 'draft'"/>
+                        </group>
+                        <group string="Info Penerimaan" invisible="state != 'received'">
+                            <field name="receipt_date" readonly="1"/>
+                            <field name="received_by" readonly="1"/>
+                        </group>
+                    </group>
+                    <separator string="Daftar Bahan Baku"/>
+                    <field name="item_ids" readonly="state != 'draft'">
+                        <tree editable="bottom">
+                            <field name="ingredient_id"
+                                   string="Bahan Baku"
+                                   options="{'no_create': True}"/>
+                            <field name="unit" readonly="1" string="Satuan"/>
+                            <field name="quantity" string="Jumlah"/>
+                            <field name="price_unit" string="Harga Satuan"/>
+                            <field name="subtotal" readonly="1" string="Subtotal"/>
+                        </tree>
+                    </field>
+                    <group class="oe_subtotal_footer oe_right">
+                        <field name="total_price" readonly="1" string="Total Pesanan"/>
+                    </group>
+                    <field name="note" placeholder="Catatan tambahan..." readonly="state != 'draft'"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_purchase_order_search" model="ir.ui.view">
+        <field name="name">dreezel.purchase.order.search</field>
+        <field name="model">dreezel.purchase.order</field>
+        <field name="arch" type="xml">
+            <search string="Cari Pengadaan">
+                <field name="name" string="No. Pesanan"/>
+                <field name="vendor_id" string="Vendor"/>
+                <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                <filter name="ordered" string="Dipesan" domain="[('state', '=', 'ordered')]"/>
+                <filter name="received" string="Diterima" domain="[('state', '=', 'received')]"/>
+                <separator/>
+                <filter name="active_orders" string="Pesanan Aktif"
+                        domain="[('state', 'in', ['draft', 'ordered'])]"/>
+                <group expand="1" string="Kelompokkan">
+                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_vendor" string="Vendor" context="{'group_by': 'vendor_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action utama: Pengadaan Bahan Baku (gabungan Pemesanan + Penerimaan + Tracking) -->
+    <record id="action_pengadaan_bahan_baku" model="ir.actions.act_window">
+        <field name="name">Pengadaan Bahan Baku</field>
+        <field name="res_model">dreezel.purchase.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_group_state': 1}</field>
+    </record>
+
+    <!-- Tetap ada untuk backward-compatibility (tidak dipakai di menu) -->
+    <record id="action_purchase_order" model="ir.actions.act_window">
+        <field name="name">Purchase Orders</field>
+        <field name="res_model">dreezel.purchase.order</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

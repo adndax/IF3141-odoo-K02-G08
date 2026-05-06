@@ -1,0 +1,41 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_category_manager,Category Manager,model_dreezel_category,dreezel_coffee.group_manager,1,1,1,1
+access_category_kasir,Category Kasir,model_dreezel_category,dreezel_coffee.group_kasir,1,0,0,0
+access_category_operasional,Category Operasional,model_dreezel_category,dreezel_coffee.group_operasional,1,0,0,0
+access_category_system,Category System,model_dreezel_category,base.group_system,1,1,1,1
+access_ingredient_manager,Ingredient Manager,model_dreezel_ingredient,dreezel_coffee.group_manager,1,1,1,1
+access_ingredient_operasional,Ingredient Operasional,model_dreezel_ingredient,dreezel_coffee.group_operasional,1,1,1,0
+access_ingredient_kasir,Ingredient Kasir,model_dreezel_ingredient,dreezel_coffee.group_kasir,1,0,0,0
+access_ingredient_system,Ingredient System,model_dreezel_ingredient,base.group_system,1,1,1,1
+access_vendor_manager,Vendor Manager,model_dreezel_vendor,dreezel_coffee.group_manager,1,1,1,1
+access_vendor_operasional,Vendor Operasional,model_dreezel_vendor,dreezel_coffee.group_operasional,1,1,1,0
+access_vendor_system,Vendor System,model_dreezel_vendor,base.group_system,1,1,1,1
+access_product_manager,Product Manager,model_dreezel_product,dreezel_coffee.group_manager,1,1,1,1
+access_product_kasir,Product Kasir,model_dreezel_product,dreezel_coffee.group_kasir,1,0,0,0
+access_product_operasional,Product Operasional,model_dreezel_product,dreezel_coffee.group_operasional,1,0,0,0
+access_product_system,Product System,model_dreezel_product,base.group_system,1,1,1,1
+access_product_ingredient_manager,Product Ingredient Manager,model_dreezel_product_ingredient,dreezel_coffee.group_manager,1,1,1,1
+access_product_ingredient_kasir,Product Ingredient Kasir,model_dreezel_product_ingredient,dreezel_coffee.group_kasir,1,0,0,0
+access_product_ingredient_operasional,Product Ingredient Operasional,model_dreezel_product_ingredient,dreezel_coffee.group_operasional,1,0,0,0
+access_product_ingredient_system,Product Ingredient System,model_dreezel_product_ingredient,base.group_system,1,1,1,1
+access_discount_manager,Discount Manager,model_dreezel_discount,dreezel_coffee.group_manager,1,1,1,1
+access_discount_kasir,Discount Kasir,model_dreezel_discount,dreezel_coffee.group_kasir,1,0,0,0
+access_discount_system,Discount System,model_dreezel_discount,base.group_system,1,1,1,1
+access_transaction_manager,Transaction Manager,model_dreezel_transaction,dreezel_coffee.group_manager,1,1,1,1
+access_transaction_kasir,Transaction Kasir,model_dreezel_transaction,dreezel_coffee.group_kasir,1,1,1,0
+access_transaction_operasional,Transaction Operasional,model_dreezel_transaction,dreezel_coffee.group_operasional,1,0,0,0
+access_transaction_system,Transaction System,model_dreezel_transaction,base.group_system,1,1,1,1
+access_transaction_item_manager,Transaction Item Manager,model_dreezel_transaction_item,dreezel_coffee.group_manager,1,1,1,1
+access_transaction_item_kasir,Transaction Item Kasir,model_dreezel_transaction_item,dreezel_coffee.group_kasir,1,1,1,1
+access_transaction_item_operasional,Transaction Item Operasional,model_dreezel_transaction_item,dreezel_coffee.group_operasional,1,0,0,0
+access_transaction_item_system,Transaction Item System,model_dreezel_transaction_item,base.group_system,1,1,1,1
+access_purchase_order_manager,Purchase Order Manager,model_dreezel_purchase_order,dreezel_coffee.group_manager,1,1,1,1
+access_purchase_order_operasional,Purchase Order Operasional,model_dreezel_purchase_order,dreezel_coffee.group_operasional,1,1,1,0
+access_purchase_order_system,Purchase Order System,model_dreezel_purchase_order,base.group_system,1,1,1,1
+access_purchase_item_manager,Purchase Item Manager,model_dreezel_purchase_item,dreezel_coffee.group_manager,1,1,1,1
+access_purchase_item_operasional,Purchase Item Operasional,model_dreezel_purchase_item,dreezel_coffee.group_operasional,1,1,1,1
+access_purchase_item_system,Purchase Item System,model_dreezel_purchase_item,base.group_system,1,1,1,1
+access_notification_manager,Notification Manager,model_dreezel_notification,dreezel_coffee.group_manager,1,1,1,1
+access_notification_operasional,Notification Operasional,model_dreezel_notification,dreezel_coffee.group_operasional,1,1,1,0
+access_notification_kasir,Notification Kasir,model_dreezel_notification,dreezel_coffee.group_kasir,1,1,1,0
+access_notification_system,Notification System,model_dreezel_notification,base.group_system,1,1,1,1

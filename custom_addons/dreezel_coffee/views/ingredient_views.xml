@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_ingredient_tree" model="ir.ui.view">
+        <field name="name">dreezel.ingredient.tree</field>
+        <field name="model">dreezel.ingredient</field>
+        <field name="arch" type="xml">
+            <!-- Baris merah = stok menipis (pengganti halaman Notifikasi terpisah) -->
+            <tree string="Daftar Bahan Baku"
+                 
+                  decoration-danger="is_low_stock == True"
+                  decoration-success="is_low_stock == False">
+                <field name="code" optional="show"/>
+                <field name="name" string="Nama Bahan"/>
+                <field name="vendor_id" optional="show" string="Vendor"/>
+                <field name="stock" string="Stok"/>
+                <field name="min_stock" string="Stok Minimum"/>
+                <field name="unit" string="Satuan"/>
+                <field name="price_per_unit" optional="show" string="Harga/Satuan"/>
+                <field name="is_low_stock" widget="boolean_toggle" string="Stok Menipis?" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_ingredient_form" model="ir.ui.view">
+        <field name="name">dreezel.ingredient.form</field>
+        <field name="model">dreezel.ingredient</field>
+        <field name="arch" type="xml">
+            <form string="Bahan Baku">
+                <sheet>
+                    <!-- Ribbon merah muncul otomatis jika stok ≤ minimum -->
+                    <widget name="web_ribbon" title="⚠ Stok Menipis!" bg_color="bg-danger"
+                            invisible="not is_low_stock"/>
+                    <group>
+                        <group string="Informasi">
+                            <field name="name" string="Nama Bahan"/>
+                            <field name="code" string="Kode"/>
+                            <field name="unit" string="Satuan"/>
+                            <field name="vendor_id" string="Vendor"/>
+                        </group>
+                        <group string="Stok">
+                            <field name="stock" string="Stok Saat Ini"/>
+                            <field name="min_stock" string="Stok Minimum"/>
+                            <field name="price_per_unit" string="Harga per Satuan"/>
+                            <field name="is_low_stock" readonly="1" string="Stok Menipis?"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_ingredient_search" model="ir.ui.view">
+        <field name="name">dreezel.ingredient.search</field>
+        <field name="model">dreezel.ingredient</field>
+        <field name="arch" type="xml">
+            <search string="Cari Bahan Baku">
+                <field name="name" string="Nama Bahan"/>
+                <field name="code" string="Kode"/>
+                <field name="vendor_id" string="Vendor"/>
+                <!-- Filter stok menipis: pengganti halaman Notifikasi terpisah -->
+                <filter name="low_stock" string="⚠ Stok Menipis"
+                        domain="[('is_low_stock', '=', True)]"/>
+                <filter name="sufficient" string="Stok Cukup"
+                        domain="[('is_low_stock', '=', False)]"/>
+                <group expand="0" string="Kelompokkan">
+                    <filter name="group_vendor" string="Vendor" context="{'group_by': 'vendor_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_ingredient" model="ir.actions.act_window">
+        <field name="name">Daftar Bahan Baku</field>
+        <field name="res_model">dreezel.ingredient</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>
