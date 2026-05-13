@@ -13,6 +13,7 @@
         'security/ir.model.access.csv',
         'data/sequences.xml',
         'data/initial_data.xml',
+        'data/users.xml',
         'views/category_views.xml',
         'views/ingredient_views.xml',
         'views/vendor_views.xml',

@@ -23,21 +23,21 @@
         name="Manajemen Produk dan Transaksi"
         parent="menu_root"
         sequence="2"
-        groups="dreezel_coffee.group_manager,base.group_system"/>
+        groups="dreezel_coffee.group_manager,dreezel_coffee.group_kasir,dreezel_coffee.group_operasional,base.group_system"/>
 
     <menuitem id="menu_daftar_produk"
         name="Daftar Produk"
         parent="menu_produk_transaksi"
         action="action_product"
         sequence="1"
-        groups="dreezel_coffee.group_manager,base.group_system"/>
+        groups="dreezel_coffee.group_manager,dreezel_coffee.group_kasir,dreezel_coffee.group_operasional,base.group_system"/>
 
     <menuitem id="menu_riwayat_transaksi"
         name="Riwayat Transaksi"
         parent="menu_produk_transaksi"
         action="action_transaction"
         sequence="2"
-        groups="dreezel_coffee.group_manager,base.group_system"/>
+        groups="dreezel_coffee.group_manager,dreezel_coffee.group_kasir,base.group_system"/>
 
     <!-- ============================================================
          3. MANAJEMEN BAHAN BAKU  (Manajer) — 3 submenu
@@ -47,28 +47,28 @@
         name="Manajemen Bahan Baku"
         parent="menu_root"
         sequence="3"
-        groups="dreezel_coffee.group_manager,base.group_system"/>
+        groups="dreezel_coffee.group_manager,dreezel_coffee.group_operasional,base.group_system"/>
 
     <menuitem id="menu_daftar_bahan_baku"
         name="Daftar Bahan Baku"
         parent="menu_bahan_baku_root"
         action="action_ingredient"
         sequence="1"
-        groups="dreezel_coffee.group_manager,base.group_system"/>
+        groups="dreezel_coffee.group_manager,dreezel_coffee.group_operasional,base.group_system"/>
 
     <menuitem id="menu_pengadaan_bahan_baku"
         name="Pengadaan Bahan Baku"
         parent="menu_bahan_baku_root"
         action="action_pengadaan_bahan_baku"
         sequence="2"
-        groups="dreezel_coffee.group_manager,base.group_system"/>
+        groups="dreezel_coffee.group_manager,dreezel_coffee.group_operasional,base.group_system"/>
 
     <menuitem id="menu_vendor"
         name="Vendor"
         parent="menu_bahan_baku_root"
         action="action_vendor"
         sequence="3"
-        groups="dreezel_coffee.group_manager,base.group_system"/>
+        groups="dreezel_coffee.group_manager,dreezel_coffee.group_operasional,base.group_system"/>
 
     <!-- ============================================================
          4. LAPORAN PENJUALAN  (Manajer)
