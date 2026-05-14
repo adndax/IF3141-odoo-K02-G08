@@ -38,6 +38,24 @@ class PurchaseOrder(models.Model):
                 vals['name'] = self.env['ir.sequence'].next_by_code('dreezel.purchase.order') or 'New'
         return super().create(vals_list)
 
+    def unlink(self):
+        stock_adjustments = {}
+        for order in self.filtered(lambda rec: rec.state == 'received'):
+            for item in order.item_ids.filtered('ingredient_id'):
+                ingredient_id = item.ingredient_id.id
+                if ingredient_id not in stock_adjustments:
+                    stock_adjustments[ingredient_id] = {
+                        'ingredient': item.ingredient_id,
+                        'quantity': 0.0,
+                    }
+                stock_adjustments[ingredient_id]['quantity'] += item.quantity
+
+        for adjustment in stock_adjustments.values():
+            adjustment['ingredient'].stock -= adjustment['quantity']
+
+        self.mapped('item_ids').unlink()
+        return super().unlink()
+
     def action_order(self):
         self.ensure_one()
         # Bersihkan baris kosong sebelum validasi
@@ -109,3 +127,28 @@ class PurchaseItem(models.Model):
     def _compute_subtotal(self):
         for rec in self:
             rec.subtotal = rec.quantity * rec.price_unit
+
+    @api.onchange('ingredient_id')
+    def _onchange_ingredient_id(self):
+        for rec in self:
+            rec.price_unit = rec.ingredient_id.price_per_unit if rec.ingredient_id else 0.0
+
+    @api.onchange('quantity')
+    def _onchange_quantity(self):
+        for rec in self:
+            if rec.ingredient_id and not rec.price_unit:
+                rec.price_unit = rec.ingredient_id.price_per_unit
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if 'ingredient_id' in vals and 'price_unit' not in vals:
+                ingredient = self.env['dreezel.ingredient'].browse(vals['ingredient_id'])
+                vals['price_unit'] = ingredient.price_per_unit if ingredient else 0.0
+        return super().create(vals_list)
+
+    def write(self, vals):
+        if 'ingredient_id' in vals and 'price_unit' not in vals:
+            ingredient = self.env['dreezel.ingredient'].browse(vals['ingredient_id'])
+            vals = dict(vals, price_unit=ingredient.price_per_unit if ingredient else 0.0)
+        return super().write(vals)
