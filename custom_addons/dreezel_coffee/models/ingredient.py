@@ -12,7 +12,7 @@ class Ingredient(models.Model):
     stock = fields.Float(string='Stock', default=0.0, digits=(16, 3))
     min_stock = fields.Float(string='Minimum Stock', default=0.0, digits=(16, 3))
     price_per_unit = fields.Float(string='Price per Unit', digits=(16, 2))
-    vendor_id = fields.Many2one('dreezel.vendor', string='Vendor', ondelete='set null')
+    vendor_id = fields.Many2one('dreezel.vendor', string='Vendor', ondelete='cascade')
     is_low_stock = fields.Boolean(
         compute='_compute_is_low_stock', store=True, string='Low Stock'
     )

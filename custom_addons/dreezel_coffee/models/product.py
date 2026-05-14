@@ -26,7 +26,7 @@ class ProductIngredient(models.Model):
         'dreezel.product', string='Product', required=True, ondelete='cascade'
     )
     ingredient_id = fields.Many2one(
-        'dreezel.ingredient', string='Ingredient', required=True, ondelete='restrict'
+        'dreezel.ingredient', string='Ingredient', required=True, ondelete='cascade'
     )
     quantity = fields.Float(string='Quantity', required=True, digits=(16, 3), default=1.0)
     unit = fields.Char(related='ingredient_id.unit', string='Unit', readonly=True)
