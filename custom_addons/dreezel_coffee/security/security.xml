@@ -22,7 +22,6 @@
         <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
     </record>
 
-    <!-- Make base Settings group imply our Manager group so admin always has access -->
     <record id="base.group_system" model="res.groups">
         <field name="implied_ids" eval="[(4, ref('group_manager'))]"/>
     </record>

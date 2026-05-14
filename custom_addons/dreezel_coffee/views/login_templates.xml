@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="custom_login_layout" inherit_id="web.login_layout">
+            <xpath expr="//img" position="replace">
+                <img src="/dreezel_coffee/static/description/icon.png" alt="Dreezel Coffee Logo" style="max-height:120px; max-width: 100%; width:auto; margin: 0 auto; display: block;"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

@@ -24,6 +24,7 @@
         'views/notification_views.xml',
         'views/report_views.xml',
         'views/menus.xml',
+        'views/login_templates.xml',
     ],
     'demo': ['demo/demo.xml'],
     'assets': {
