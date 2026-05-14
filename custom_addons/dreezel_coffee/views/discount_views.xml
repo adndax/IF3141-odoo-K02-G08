@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_discount_tree" model="ir.ui.view">
+        <field name="name">dreezel.discount.tree</field>
+        <field name="model">dreezel.discount</field>
+        <field name="arch" type="xml">
+            <tree string="Daftar Diskon"
+                 
+                  decoration-muted="not is_active">
+                <field name="code" string="Kode Diskon"/>
+                <field name="discount_type" string="Tipe"/>
+                <field name="value" string="Nilai"/>
+                <field name="date_start" string="Berlaku Mulai"/>
+                <field name="date_end" string="Berlaku Hingga"/>
+                <field name="is_active" widget="boolean_toggle" string="Aktif"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_discount_form" model="ir.ui.view">
+        <field name="name">dreezel.discount.form</field>
+        <field name="model">dreezel.discount</field>
+        <field name="arch" type="xml">
+            <form string="Diskon">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="code" string="Kode Diskon"/>
+                        <h1><field name="code" placeholder="Kode Diskon"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code" string="Kode Diskon"/>
+                            <field name="discount_type" string="Tipe Diskon"/>
+                            <field name="value" string="Nilai Diskon"/>
+                        </group>
+                        <group>
+                            <field name="date_start" string="Berlaku Mulai"/>
+                            <field name="date_end" string="Berlaku Hingga"/>
+                            <field name="is_active" string="Aktif"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_discount" model="ir.actions.act_window">
+        <field name="name">Diskon</field>
+        <field name="res_model">dreezel.discount</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

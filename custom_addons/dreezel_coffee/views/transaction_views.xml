@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_transaction_tree" model="ir.ui.view">
+        <field name="name">dreezel.transaction.tree</field>
+        <field name="model">dreezel.transaction</field>
+        <field name="arch" type="xml">
+            <tree string="Riwayat Transaksi"
+                 
+                  decoration-success="state == 'paid'">
+                <field name="name" string="No. Transaksi"/>
+                <field name="date" string="Tanggal"/>
+                <field name="cashier_id" string="Kasir"/>
+                <field name="payment_method" string="Metode Bayar"/>
+                <field name="total" string="Total"/>
+                <field name="state" widget="badge"
+                       decoration-success="state == 'paid'"
+                       decoration-warning="state == 'draft'"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_transaction_kanban" model="ir.ui.view">
+        <field name="name">dreezel.transaction.kanban</field>
+        <field name="model">dreezel.transaction</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" class="o_kanban_small_column">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="cashier_id"/>
+                <field name="total"/>
+                <field name="state"/>
+                <field name="payment_method"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <strong><field name="name"/></strong>
+                                <div class="text-muted">
+                                    <field name="date"/>
+                                </div>
+                                <div>Kasir: <field name="cashier_id"/></div>
+                                <div>Total: <field name="total"/> IDR</div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_transaction_form" model="ir.ui.view">
+        <field name="name">dreezel.transaction.form</field>
+        <field name="model">dreezel.transaction</field>
+        <field name="arch" type="xml">
+            <form string="Transaksi">
+                <header>
+                    <!-- Konfirmasi Pembayaran: tampil saat Draft -->
+                    <button name="action_confirm"
+                            string="Konfirmasi Pembayaran"
+                            type="object"
+                            class="oe_highlight"
+                            invisible="state != 'draft'"/>
+                    <!-- Kembali ke Beranda: tampil setelah Lunas -->
+                    <button name="action_kembali_beranda"
+                            string="Kembali ke Beranda"
+                            type="object"
+                            class="btn-secondary"
+                            invisible="state != 'paid'"/>
+                    <!-- Status: hanya Draft dan Lunas -->
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,paid"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" string="Transaksi"/>
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group string="Info Transaksi">
+                            <field name="cashier_id" readonly="state != 'draft'"/>
+                            <field name="date" readonly="state != 'draft'"/>
+                            <field name="discount_id"
+                                   readonly="state != 'draft'"
+                                   domain="[('is_active', '=', True)]"
+                                   options="{'no_create': True}"/>
+                        </group>
+                        <group string="Pembayaran">
+                            <field name="payment_method"
+                                   readonly="state != 'draft'"/>
+                            <field name="amount_paid"
+                                   readonly="state != 'draft' or payment_method in ('debit', 'e_wallet')"
+                                   invisible="state == 'draft' and payment_method in ('debit', 'e_wallet')"/>
+                            <field name="change"
+                                   readonly="1"
+                                   invisible="payment_method != 'cash'"/>
+                        </group>
+                    </group>
+                    <separator string="Item Pesanan"/>
+                    <field name="item_ids" readonly="state != 'draft'">
+                        <tree editable="bottom">
+                            <field name="product_id"
+                                   domain="[('is_available', '=', True)]"
+                                   options="{'no_create': True}"
+                                   string="Produk"/>
+                            <field name="price_unit" readonly="1" string="Harga Satuan"/>
+                            <field name="quantity" string="Qty"/>
+                            <field name="subtotal" readonly="1" string="Subtotal"/>
+                            <field name="note" string="Catatan"/>
+                        </tree>
+                    </field>
+                    <group class="oe_subtotal_footer oe_right">
+                        <field name="subtotal" readonly="1" string="Subtotal"/>
+                        <field name="discount_amount" readonly="1" string="Diskon"/>
+                        <field name="total" readonly="1"
+                               class="oe_subtotal_footer_separator"
+                               string="Total"/>
+                    </group>
+                    <field name="note"
+                           placeholder="Catatan tambahan..."
+                           readonly="state != 'draft'"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_transaction_search" model="ir.ui.view">
+        <field name="name">dreezel.transaction.search</field>
+        <field name="model">dreezel.transaction</field>
+        <field name="arch" type="xml">
+            <search string="Cari Transaksi">
+                <field name="name" string="No. Transaksi"/>
+                <field name="cashier_id" string="Kasir"/>
+                <filter name="paid" string="Lunas" domain="[('state', '=', 'paid')]"/>
+                <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                <separator/>
+                <filter name="today" string="Hari Ini"
+                        domain="[('date', '&gt;=', context_today().strftime('%Y-%m-%d 00:00:00')),
+                                 ('date', '&lt;=', context_today().strftime('%Y-%m-%d 23:59:59'))]"/>
+                <filter name="this_month" string="Bulan Ini"
+                        domain="[('date', '&gt;=', context_today().strftime('%Y-%m-01 00:00:00'))]"/>
+                <group expand="0" string="Kelompokkan">
+                    <filter name="group_cashier" string="Kasir" context="{'group_by': 'cashier_id'}"/>
+                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_date" string="Tanggal" context="{'group_by': 'date:day'}"/>
+                    <filter name="group_payment" string="Metode Bayar" context="{'group_by': 'payment_method'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action: Riwayat semua transaksi (Manajer) -->
+    <record id="action_transaction" model="ir.actions.act_window">
+        <field name="name">Riwayat Transaksi</field>
+        <field name="res_model">dreezel.transaction</field>
+        <field name="view_mode">tree,kanban,form</field>
+    </record>
+
+    <!-- Action: Dashboard POS (Kasir) -->
+    <record id="action_transaction_dashboard" model="ir.actions.act_window">
+        <field name="name">Dashboard POS</field>
+        <field name="res_model">dreezel.transaction</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="domain">[('state', 'in', ['draft', 'paid'])]</field>
+        <field name="context">{'search_default_today': 1}</field>
+    </record>
+
+    <!-- Action: form transaksi baru langsung -->
+    <record id="action_transaction_new" model="ir.actions.act_window">
+        <field name="name">Transaksi Baru</field>
+        <field name="res_model">dreezel.transaction</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+    </record>
+</odoo>

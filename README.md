@@ -1,5 +1,19 @@
 # IF3141 Sistem Informasi - Odoo Setup
 
+## Dummy Credential
+
+### Kasir
+- Username: `kasir1@dreezel.com`
+- Password: `kasir`
+
+### Tim Operasional
+- Username: `ops1@dreezel.com`
+- Password: `ops`
+
+### Manajer
+- Username: `manager1@dreezel.com`
+- Password: `manager`
+
 ## Introduction
 
 Odoo merupakan *Enterprise Resource Planning System* yang mampu melakukan implementasi modul modul kustom untuk menyelesaikan permasalahan proses bisnis pada suatu perusahaan.

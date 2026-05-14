@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="seq_transaction" model="ir.sequence">
+        <field name="name">Sales Transaction</field>
+        <field name="code">dreezel.transaction</field>
+        <field name="prefix">TRX/%(year)s/%(month)s/</field>
+        <field name="padding">4</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="seq_purchase_order" model="ir.sequence">
+        <field name="name">Purchase Order</field>
+        <field name="code">dreezel.purchase.order</field>
+        <field name="prefix">PO/%(year)s/</field>
+        <field name="padding">5</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+</odoo>
